@@ -43,7 +43,7 @@ I exploited this by using a combination of commands. The goal was to create the 
 First, I created the necessary `script.sh` file that would continuously run and trigger the vulnerability:
 
 ```bash
-while true; /tmp/script.sh; done
+while true; do /tmp/script.sh; done
 ```
 
 This would execute the necessary steps in the background, creating a symbolic link from `/tmp/test` to `/home/user/level10/token`.

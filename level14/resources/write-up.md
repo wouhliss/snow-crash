@@ -12,7 +12,7 @@ I started by analyzing the `getflag` binary in **Ghidra**. During the reverse-en
 
 ### Step 2: Finding the `flag14` User ID
 
-After examining the binary, I found the `uid` for the `flag14` user. This `uid` was associated with a particular password, which was generated using the `ft_des` function.
+We found `flag14` User ID in the `/etc/passwd` file.
 
 ### Step 3: Identifying the Correct `ft_des` Input
 

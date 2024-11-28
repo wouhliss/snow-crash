@@ -11,7 +11,7 @@ The goal of this level was to analyze network traffic and retrieve the password 
 To begin, I used `scp` to securely copy the `level02.pcap` file from the target system to my local machine:
 
 ```bash
-scp -P 2222 level02@localhost:level02.pcap level02.pcap
+scp -P 2222 level02@localhost:level02.pcap level02.pcap && chmod 700 level02.pcap
 ```
 
 This command specifies the port (-P 2222) and transfers the file level02.pcap from the remote user level02 to the local machine.
