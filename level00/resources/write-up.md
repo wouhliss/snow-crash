@@ -21,7 +21,7 @@ This revealed a potential lead: flag00 was associated with the string john.
 Next, I used the find command to locate where `john` was stored:
 
 ```bash
-find / -name "john"
+find / -name "john" 2> /dev/null
 ```
 
 This pointed me to the path: /usr/sbin/john.
